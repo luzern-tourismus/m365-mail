@@ -1,0 +1,20 @@
+{
+    "name": "luzerntourismus/m365mail",
+    "description": "Send eMail via M365",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LuzernTourismus\\M365Mail\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Urs Lang",
+            "email": "urs.lang@luzern.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "nemundo/framework": "dev-master"
+    }
+}

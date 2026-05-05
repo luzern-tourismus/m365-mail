@@ -1,0 +1,1 @@
+<?phprequire 'vendor/autoload.php';(new \Nemundo\Project\Config\ProjectConfigConsoleScript())->buildConfig();
