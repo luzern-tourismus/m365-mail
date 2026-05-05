@@ -1,5 +1,7 @@
 # M365 Mail
 
+Send eMail with Graph Api.
+
 
 ### Installation
 ```
