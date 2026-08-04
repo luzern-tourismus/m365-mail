@@ -5,7 +5,7 @@ namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Member;
 class Member
 {
 
-    public readonly string $companyId;
+    public readonly string|null $companyId;
 
     public readonly string $contactId;
 
