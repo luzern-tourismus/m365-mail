@@ -59,6 +59,13 @@ class Member
             $this->mobile = null;
         }
 
+        if (is_string($data['parentcustomerid_account']['accountid'])) {
+            $this->companyId = $data['parentcustomerid_account']['accountid'];
+        } else {
+            $this->companyId = null;
+        }
+
+
         if (is_string($data['parentcustomerid_account']['name'])) {
             $this->company = $data['parentcustomerid_account']['name'];
         } else {
