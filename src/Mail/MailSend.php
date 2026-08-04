@@ -2,16 +2,14 @@
 
 namespace LuzernTourismus\M365Mail\Mail;
 
+use LuzernTourismus\M365Mail\Login\TokenLogin;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\File\Base64\Base64FileReader;
 use Nemundo\Core\File\File;
 use Nemundo\Core\Http\Response\StatusCode;
 use Nemundo\Core\Json\JsonText;
-use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\WebRequest\BearerAuthentication\JsonBearerAuthenticationWebRequest;
-use Nemundo\Core\WebRequest\Curl\CurlWebRequest;
-use Nemundo\Project\Config\ProjectConfigReader;
 
 class MailSend extends AbstractBase
 {
@@ -38,32 +36,7 @@ class MailSend extends AbstractBase
     public function send()
     {
 
-        $tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
-        $applicationId = (new ProjectConfigReader())->getValue('m365_application_id');
-        $clientSecret = (new ProjectConfigReader())->getValue('m365_client_secret');
-
-        $tokenUrl = 'https://login.microsoftonline.com/' . $tenantId . '/oauth2/v2.0/token';
-        $postData = [
-            'client_id' => $applicationId,
-            'scope' => 'https://graph.microsoft.com/.default',
-            'client_secret' => $clientSecret,
-            'grant_type' => 'client_credentials'
-        ];
-
-        $tokenRequest = new CurlWebRequest();
-        $tokeResponse = $tokenRequest->postUrl($tokenUrl, $postData);
-
-        $tokenJson = (new JsonReader())->fromText($tokeResponse->html)->getData();
-
-        $token = null;
-        if (isset($tokenJson['access_token'])) {
-            $token = $tokenJson['access_token'];
-        } else {
-            (new Debug())->write('No valid token');
-            (new Debug())->write($tokeResponse);
-        }
-
-
+        $token = (new TokenLogin())->getToken();
 
         $attachmentPayload = [];
 
