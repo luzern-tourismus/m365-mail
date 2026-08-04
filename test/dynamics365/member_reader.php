@@ -9,9 +9,16 @@ $listId = '';
 
 foreach ((new \LuzernTourismus\M365Mail\Dynamics365\Reader\Member\MemberReader()->getData($listId)) as $member) {
 
-    (new Debug())->write($member->email);
-    (new Debug())->write($member->company);
-    (new Debug())->write($member->street);
+    (new Debug())
+        ->write($member->displayName)
+        ->write($member->salutation)
+        ->write($member->lastName)
+        ->write($member->firstName)
+        ->write($member->email)
+        ->write($member->company)
+        ->write($member->street)
+        ->write('------------------');
+
 
 }
 
