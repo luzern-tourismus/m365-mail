@@ -8,9 +8,9 @@ require __DIR__ . '/../../config.php';
 
 foreach ((new MarketingListReader())->getData() as $marketingList) {
 
-    (new Debug())->write($marketingList->description);
+    //(new Debug())->write($marketingList->description);
     (new Debug())->write($marketingList->listName);
-    (new Debug())->write($marketingList->listId);
+    //(new Debug())->write($marketingList->listId);
 
 }
 

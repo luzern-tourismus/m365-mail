@@ -5,9 +5,13 @@ namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Member;
 class Member
 {
 
-    public readonly string $id;
+    public readonly string $companyId;
+
+    public readonly string $contactId;
 
     public readonly string $displayName;
+
+    public readonly string $salutation;
 
     public readonly string $firstName;
 
@@ -30,7 +34,8 @@ class Member
     public function __construct($data)
     {
 
-        $this->id = $data['contactid'];
+        $this->contactId = $data['contactid'];
+        $this->salutation = $data['salutation'];
         $this->displayName = $data['fullname'];
         $this->firstName = $data['firstname'];
         $this->lastName = $data['lastname'];
@@ -48,10 +53,29 @@ class Member
             $this->mobile = null;
         }
 
+        $this->companyId = $data['parentcustomerid_account']['accountid'];
         $this->company = $data['parentcustomerid_account']['name'];
-        $this->street = $data['parentcustomerid_account']['address1_line1'];
-        $this->postalCode = $data['parentcustomerid_account']['address1_postalcode'];
-        $this->city = $data['parentcustomerid_account']['address1_city'];
+
+        if (is_string($data['parentcustomerid_account']['address1_line1'])) {
+            $this->street = $data['parentcustomerid_account']['address1_line1'];
+        } else {
+            $this->street = null;
+        }
+        //$this->street = $data['parentcustomerid_account']['address1_line1'];
+
+
+        if (is_string($data['parentcustomerid_account']['address1_postalcode'])) {
+            $this->postalCode = $data['parentcustomerid_account']['address1_postalcode'];
+        } else {
+            $this->postalCode = null;
+        }
+
+        if (is_string($data['parentcustomerid_account']['address1_city'])) {
+            $this->city = $data['parentcustomerid_account']['address1_city'];
+        } else {
+            $this->city = null;
+        }
+        //$this->city = $data['parentcustomerid_account']['address1_city'];
 
     }
 
