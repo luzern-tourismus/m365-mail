@@ -3,7 +3,7 @@
 namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Base;
 
 use LuzernTourismus\M365Mail\Dynamics365\Config\Dynamics365Config;
-use LuzernTourismus\M365Mail\Login\TokenLogin;
+use LuzernTourismus\M365Mail\Login\Token\ClientToken;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\TextFile\Writer\TextFileWriter;
@@ -14,7 +14,6 @@ use Nemundo\Project\Path\TmpPath;
 abstract class AbstractDynamics365Reader
 {
 
-
     protected function getJsonData($endpoint)
     {
 
@@ -22,7 +21,9 @@ abstract class AbstractDynamics365Reader
         $domain = 'https://' . $org . '.crm4.dynamics.com/';
         $scope = $domain . '.default';
 
-        $token = (new TokenLogin())->getToken($scope);
+        $client = new ClientToken();
+        $client->scope = $scope;
+        $token = $client->getToken();
 
         $url = $domain . 'api/data/v9.2/lists' . $endpoint;
 
@@ -32,7 +33,7 @@ abstract class AbstractDynamics365Reader
 
         if (Dynamics365Config::$debugMode) {
 
-            (new Debug())->write($response);
+            //(new Debug())->write($response);
 
             $filename = (new TmpPath())->addPath('dynamics365.json')->getFullFilename();
 
@@ -43,7 +44,6 @@ abstract class AbstractDynamics365Reader
 
         }
 
-
         $jsonReader = new JsonReader();
         $jsonReader->fromText($response->html);
         $json = $jsonReader->getData();
@@ -53,6 +53,5 @@ abstract class AbstractDynamics365Reader
         return $valueList;
 
     }
-
 
 }

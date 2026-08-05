@@ -2,7 +2,7 @@
 
 namespace LuzernTourismus\M365Mail\Mail;
 
-use LuzernTourismus\M365Mail\Login\TokenLogin;
+use LuzernTourismus\M365Mail\Login\Token\ClientToken;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\File\Base64\Base64FileReader;
@@ -36,7 +36,7 @@ class MailSend extends AbstractBase
     public function send()
     {
 
-        $token = (new TokenLogin())->getToken();
+        $token = (new ClientToken())->getToken();
 
         $attachmentPayload = [];
 
