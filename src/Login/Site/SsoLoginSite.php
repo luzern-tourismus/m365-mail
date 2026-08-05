@@ -30,9 +30,9 @@ class SsoLoginSite extends AbstractSite
     {
 
         $builder = new LoginUrlBuilder();
-        $builder->tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
+        /*$builder->tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
         $builder->clientId = (new ProjectConfigReader())->getValue('m365_sso_application_id');
-        $builder->redirectUri = (new ProjectConfigReader())->getValue('m365_sso_redirect_uri');
+        $builder->redirectUri = (new ProjectConfigReader())->getValue('m365_sso_redirect_uri');*/
 
         (new UrlRedirect())->redirect($builder->getLoginUrl());
 

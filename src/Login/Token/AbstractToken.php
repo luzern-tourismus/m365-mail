@@ -2,6 +2,7 @@
 
 namespace LuzernTourismus\M365Mail\Login\Token;
 
+use LuzernTourismus\M365Mail\Login\Base\LoginTrait;
 use Nemundo\Core\Base\AbstractBase;
 use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\Reader\JsonReader;
@@ -11,13 +12,15 @@ use Nemundo\Project\Config\ProjectConfigReader;
 abstract class AbstractToken extends AbstractBase
 {
 
+    use LoginTrait;
+
     protected $scope;
 
-    protected $tenantId;
+    /*protected $tenantId;
 
     protected $applicationId;
 
-    protected $clientSecret;
+    protected $clientSecret;*/
 
     protected $grantType;
 
@@ -39,7 +42,9 @@ abstract class AbstractToken extends AbstractBase
     public function getToken()
     {
 
-        if ($this->tenantId === null) {
+        $this->loadConfigFile();
+
+        /*if ($this->tenantId === null) {
             $this->tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
         }
 
@@ -49,7 +54,7 @@ abstract class AbstractToken extends AbstractBase
 
         if ($this->clientSecret === null) {
             $this->clientSecret = (new ProjectConfigReader())->getValue('m365_client_secret');
-        }
+        }*/
 
         $tokenUrl = 'https://login.microsoftonline.com/' . $this->tenantId . '/oauth2/v2.0/token';
 

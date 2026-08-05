@@ -11,6 +11,14 @@ class AuthorizationToken extends AbstractToken
     public $redirectUri;
 
 
+    protected function loadToken()
+    {
+
+        $this->grantType = 'authorization_code';
+
+    }
+
+
 
     protected function loadData($postData)
     {

@@ -29,25 +29,23 @@ class CallbackSite extends AbstractSite
     public function loadContent()
     {
 
-        $tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
+        /*$tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
         $clientId = (new ProjectConfigReader())->getValue('m365_sso_application_id');
         $clientSecret = (new ProjectConfigReader())->getValue('m365_sso_client_secret');
-
+        $redirectUri = (new ProjectConfigReader())->getValue('m365_sso_redirect_uri');*/
 
         $login = new CallbackToken();
-        $login->tenantId = $tenantId;
+        /*$login->tenantId = $tenantId;
         $login->clientId = $clientId;
         $login->clientSecret = $clientSecret;
+        $login->redirectUri = $redirectUri;*/
         $token = $login->getToken();
-
 
         $request = new ProfileRequest();
         $request->token = $token;
         $profile = $request->getProfile();
 
         (new Debug())->write($profile);
-
-
 
 
     }
