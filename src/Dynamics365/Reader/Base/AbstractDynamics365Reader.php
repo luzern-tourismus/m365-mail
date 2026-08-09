@@ -4,7 +4,6 @@ namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Base;
 
 use LuzernTourismus\M365Mail\Dynamics365\Config\Dynamics365Config;
 use LuzernTourismus\M365Mail\Login\Token\ClientToken;
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\TextFile\Writer\TextFileWriter;
 use Nemundo\Core\WebRequest\BearerAuthentication\JsonBearerAuthenticationWebRequest;
@@ -48,7 +47,10 @@ abstract class AbstractDynamics365Reader
         $jsonReader->fromText($response->html);
         $json = $jsonReader->getData();
 
-        $valueList = $json['value'];
+        $valueList = [];
+        if (isset($json['value'])) {
+            $valueList = $json['value'];
+        }
 
         return $valueList;
 

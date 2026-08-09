@@ -22,19 +22,13 @@ class ProfileRequest
         $curl->bearerAuthentication = $this->token;
         $response = $curl->getUrl($url);
 
-        (new Debug())->write($response);
+        //(new Debug())->write($response);
 
         $profileJson = (new JsonReader())->fromText($response->html)->getData();
-
         $profile = new Profile($profileJson);
 
         return $profile;
 
-
-
-
     }
-
-
 
 }

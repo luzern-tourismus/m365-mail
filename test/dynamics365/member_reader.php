@@ -1,11 +1,12 @@
 <?php
 
 use Nemundo\Core\Debug\Debug;
+use Nemundo\Project\Config\ProjectConfigReader;
 
 require __DIR__ . '/../../config.php';
 
 
-$listId = '';
+$listId = (new ProjectConfigReader())->getValue( 'test_list_id');
 
 foreach ((new \LuzernTourismus\M365Mail\Dynamics365\Reader\Member\MemberReader()->getData($listId)) as $member) {
 

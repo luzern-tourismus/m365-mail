@@ -5,6 +5,8 @@ namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Member;
 class Member
 {
 
+    //crmIdentifier
+
     public readonly string|null $companyId;
 
     public readonly string $contactId;
@@ -21,6 +23,9 @@ class Member
 
     public readonly string|null $phone;
     public readonly string|null $mobile;
+
+    public readonly bool $hasCompany;
+
 
     public readonly string|null $company;
 
@@ -59,35 +64,44 @@ class Member
             $this->mobile = null;
         }
 
-        if (is_string($data['parentcustomerid_account']['accountid'])) {
-            $this->companyId = $data['parentcustomerid_account']['accountid'];
-        } else {
-            $this->companyId = null;
-        }
+        if (isset($data['parentcustomerid_account'])) {
 
+            $this->hasCompany = true;
 
-        if (is_string($data['parentcustomerid_account']['name'])) {
-            $this->company = $data['parentcustomerid_account']['name'];
-        } else {
-            $this->company = null;
-        }
+            if (is_string($data['parentcustomerid_account']['accountid'])) {
+                $this->companyId = $data['parentcustomerid_account']['accountid'];
+            } else {
+                $this->companyId = null;
+            }
 
-        if (is_string($data['parentcustomerid_account']['address1_line1'])) {
-            $this->street = $data['parentcustomerid_account']['address1_line1'];
-        } else {
-            $this->street = null;
-        }
+            if (is_string($data['parentcustomerid_account']['name'])) {
+                $this->company = $data['parentcustomerid_account']['name'];
+            } else {
+                $this->company = null;
+            }
 
-        if (is_string($data['parentcustomerid_account']['address1_postalcode'])) {
-            $this->postalCode = $data['parentcustomerid_account']['address1_postalcode'];
-        } else {
-            $this->postalCode = null;
-        }
+            if (is_string($data['parentcustomerid_account']['address1_line1'])) {
+                $this->street = $data['parentcustomerid_account']['address1_line1'];
+            } else {
+                $this->street = null;
+            }
 
-        if (is_string($data['parentcustomerid_account']['address1_city'])) {
-            $this->city = $data['parentcustomerid_account']['address1_city'];
+            if (is_string($data['parentcustomerid_account']['address1_postalcode'])) {
+                $this->postalCode = $data['parentcustomerid_account']['address1_postalcode'];
+            } else {
+                $this->postalCode = null;
+            }
+
+            if (is_string($data['parentcustomerid_account']['address1_city'])) {
+                $this->city = $data['parentcustomerid_account']['address1_city'];
+            } else {
+                $this->city = null;
+            }
+
         } else {
-            $this->city = null;
+
+            $this->hasCompany = false;
+
         }
 
     }
