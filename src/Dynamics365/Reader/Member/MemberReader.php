@@ -12,7 +12,9 @@ class MemberReader extends AbstractDynamics365Reader
      */
     public function getData($listId) {
 
-        $endpoint = '('.$listId.')/listcontact_association?$select=contactid,fullname,salutation,firstname,lastname,emailaddress1,telephone1,mobilephone&$expand=parentcustomerid_account($select=name,telephone1,emailaddress1,websiteurl,address1_line1,address1_postalcode,address1_city)';
+        //lt_anredecode
+        $endpoint = '/lists('.$listId.')/listcontact_association?$select=contactid,fullname,salutation,lt_anredecode,firstname,lastname,emailaddress1,telephone1,mobilephone&$expand=parentcustomerid_account($select=name,telephone1,emailaddress1,websiteurl,address1_line1,address1_postalcode,address1_city)';
+        $this->logName = 'member';
 
         $valueList = $this->getJsonData($endpoint);
 

@@ -13,7 +13,9 @@ class MarketingListReader extends AbstractDynamics365Reader
     public function getData()
     {
 
-        $endpoint = '?$select=listid,listname,createdfromcode,type,purpose,description&$orderby=listname';
+        $endpoint = '/lists?$select=listid,listname,createdfromcode,type,purpose,description&$orderby=listname';
+        $this->logName = 'marketinglist';
+
         $valueList = $this->getJsonData($endpoint);
 
         $list = [];

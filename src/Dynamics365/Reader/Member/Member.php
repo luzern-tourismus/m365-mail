@@ -41,8 +41,16 @@ class Member
 
         $this->contactId = $data['contactid'];
 
-        if (is_string($data['salutation'])) {
+        /*if (is_string($data['salutation'])) {
             $this->salutation = $data['salutation'];
+        } else {
+            $this->salutation = null;
+        }*/
+
+
+        $fieldName = 'lt_anredecode@OData.Community.Display.V1.FormattedValue';
+        if (is_string($data[$fieldName])) {
+            $this->salutation = $data[$fieldName];
         } else {
             $this->salutation = null;
         }
