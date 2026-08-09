@@ -49,8 +49,12 @@ class Member
 
 
         $fieldName = 'lt_anredecode@OData.Community.Display.V1.FormattedValue';
-        if (is_string($data[$fieldName])) {
-            $this->salutation = $data[$fieldName];
+        if (isset($data[$fieldName])) {
+            if (is_string($data[$fieldName])) {
+                $this->salutation = $data[$fieldName];
+            } else {
+                $this->salutation = null;
+            }
         } else {
             $this->salutation = null;
         }
