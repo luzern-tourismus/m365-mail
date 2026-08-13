@@ -16,7 +16,6 @@ abstract class AbstractDynamics365Reader
 
     protected $logName;
 
-
     protected function getJsonData($endpoint)
     {
 
@@ -28,7 +27,6 @@ abstract class AbstractDynamics365Reader
         $client->scope = $scope;
         $token = $client->getToken();
 
-//        $url = $domain . 'api/data/v9.2/lists' . $endpoint;
         $url = $domain . 'api/data/v9.2' . $endpoint;
 
         $curl = new JsonBearerAuthenticationWebRequest();
@@ -37,8 +35,6 @@ abstract class AbstractDynamics365Reader
         $response = $curl->getUrl($url);
 
         if (Dynamics365Config::$debugMode) {
-
-            (new Debug())->write($response);
 
             $filename = (new TmpPath())->addPath('dynamics365_' . $this->logName . '.json')->getFullFilename();
 
@@ -52,6 +48,15 @@ abstract class AbstractDynamics365Reader
         $jsonReader = new JsonReader();
         $jsonReader->fromText($response->html);
         $json = $jsonReader->getData();
+
+        if (isset($json['error'])) {
+
+            $errorCode = $json['error']['code'];
+            $errorMessage = $json['error']['message'];
+
+            (new Debug())->write($errorCode . ' ' . $errorMessage);
+
+        }
 
         $valueList = [];
         if (isset($json['value'])) {
