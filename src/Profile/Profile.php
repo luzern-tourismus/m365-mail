@@ -29,7 +29,7 @@ class Profile extends AbstractBase
     }
 
 
-    public function isMemberOfUsergroup($usergroupId)
+   /* public function isMemberOfUsergroup($usergroupId)
     {
 
         $value = false;
@@ -49,7 +49,7 @@ class Profile extends AbstractBase
     /**
      * @return UsergroupItem[]
      */
-    public function getGroupMembershipList()
+    /*public function getGroupMembershipList()
     {
 
         foreach ($this->profileJson['memberOf'] as $usergroupJson) {
@@ -58,6 +58,6 @@ class Profile extends AbstractBase
 
         return $list;
 
-    }
+    }*/
 
 }
