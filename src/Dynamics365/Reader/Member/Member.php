@@ -60,8 +60,19 @@ class Member
         }
 
         $this->displayName = $data['fullname'];
-        $this->firstName = $data['firstname'];
-        $this->lastName = $data['lastname'];
+
+        if (is_string($data['firstname'])) {
+            $this->firstName = $data['firstname'];
+        } else {
+            $this->firstName = null;
+        }
+
+        if (is_string($data['lastname'])) {
+            $this->lastName = $data['lastname'];
+        } else {
+            $this->lastName = null;
+        }
+
         $this->email = $data['emailaddress1'];
 
         if (is_string($data['telephone1'])) {
