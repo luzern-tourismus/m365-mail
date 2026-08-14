@@ -9,7 +9,7 @@ class UsergroupItem extends AbstractBase
 
     public readonly string $id;
 
-    public readonly string $displayName;
+    public readonly string|null $displayName;
 
 
     public function __construct($json)
