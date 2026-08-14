@@ -5,7 +5,6 @@ namespace LuzernTourismus\M365Mail\Profile;
 use LuzernTourismus\M365Mail\Graph\Config\GraphConfig;
 use LuzernTourismus\M365Mail\Graph\Reader\UsergroupItem;
 use Nemundo\Core\Base\AbstractBase;
-use Nemundo\Core\Debug\Debug;
 use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\TextFile\Writer\TextFileWriter;
 use Nemundo\Core\WebRequest\BearerAuthentication\JsonBearerAuthenticationWebRequest;
@@ -66,16 +65,16 @@ class ProfileUsergroupMemebership extends AbstractBase
         $profileJson = (new JsonReader())->fromText($response->html)->getData();
         //$profile = new Profile($profileJson);
 
-        foreach ($profileJson['value'] as $usergroupJson) {
-            $list[] = new UsergroupItem($usergroupJson);
+        $list=[];
+        if (isset($profileJson['value'])) {
+            foreach ($profileJson['value'] as $usergroupJson) {
+                $list[] = new UsergroupItem($usergroupJson);
+            }
         }
 
         return $list;
 
     }
-
-
-
 
 
 }

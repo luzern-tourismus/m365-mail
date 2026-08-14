@@ -16,7 +16,13 @@ class UsergroupItem extends AbstractBase
     {
 
         $this->id = $json['id'];
-        $this->displayName = $json['displayName'];
+
+        $value = $json['displayName'];
+        if (is_string($value)) {
+            $this->displayName = $value;
+        } else {
+            $this->displayName = null;
+        }
 
     }
 
