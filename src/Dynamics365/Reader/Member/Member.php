@@ -2,7 +2,9 @@
 
 namespace LuzernTourismus\M365Mail\Dynamics365\Reader\Member;
 
-class Member
+use Nemundo\Core\Base\AbstractBase;
+
+class Member extends AbstractBase
 {
 
     //crmIdentifier
@@ -19,7 +21,7 @@ class Member
 
     public readonly string|null $lastName;
 
-    public readonly string $email;
+    public readonly string|null $email;
 
     public readonly string|null $phone;
     public readonly string|null $mobile;
@@ -59,28 +61,37 @@ class Member
 
         $this->displayName = $data['fullname'];
 
-        if (is_string($data['firstname'])) {
-            $this->firstName = $data['firstname'];
+        $value = $data['firstname'];
+        if (is_string($value)) {
+            $this->firstName = $value;  // $data['firstname'];
         } else {
             $this->firstName = null;
         }
 
-        if (is_string($data['lastname'])) {
-            $this->lastName = $data['lastname'];
+        $value = $data['lastname'];
+        if (is_string($value)) {
+            $this->lastName = $value;  // $data['lastname'];
         } else {
             $this->lastName = null;
         }
 
-        $this->email = $data['emailaddress1'];
+        $value = $data['emailaddress1'];
+        if (is_string($value)) {
+            $this->email = $value;
+        } else {
+            $this->email = null;
+        }
 
-        if (is_string($data['telephone1'])) {
-            $this->phone = $data['telephone1'];
+        $value = $data['telephone1'];
+        if (is_string($value)) {
+            $this->phone = $value;  // $data['telephone1'];
         } else {
             $this->phone = null;
         }
 
-        if (is_string($data['mobilephone'])) {
-            $this->mobile = $data['mobilephone'];
+        $value = $data['mobilephone'];
+        if (is_string($value)) {
+            $this->mobile = $value;  // $data['mobilephone'];
         } else {
             $this->mobile = null;
         }
@@ -89,32 +100,37 @@ class Member
 
             $this->hasCompany = true;
 
-            if (is_string($data['parentcustomerid_account']['accountid'])) {
-                $this->companyId = $data['parentcustomerid_account']['accountid'];
+            $value = $data['parentcustomerid_account']['accountid'];
+            if (is_string($value)) {
+                $this->companyId = $value;  // $data['parentcustomerid_account']['accountid'];
             } else {
                 $this->companyId = null;
             }
 
-            if (is_string($data['parentcustomerid_account']['name'])) {
-                $this->company = $data['parentcustomerid_account']['name'];
+            $value = $data['parentcustomerid_account']['name'];
+            if (is_string($value)) {
+                $this->company = $value; // $data['parentcustomerid_account']['name'];
             } else {
                 $this->company = null;
             }
 
-            if (is_string($data['parentcustomerid_account']['address1_line1'])) {
-                $this->street = $data['parentcustomerid_account']['address1_line1'];
+            $value = $data['parentcustomerid_account']['address1_line1'];
+            if (is_string($value)) {
+                $this->street = $value;  // $data['parentcustomerid_account']['address1_line1'];
             } else {
                 $this->street = null;
             }
 
-            if (is_string($data['parentcustomerid_account']['address1_postalcode'])) {
-                $this->postalCode = $data['parentcustomerid_account']['address1_postalcode'];
+            $value = $data['parentcustomerid_account']['address1_postalcode'];
+            if (is_string($value)) {
+                $this->postalCode = $value;  // $data['parentcustomerid_account']['address1_postalcode'];
             } else {
                 $this->postalCode = null;
             }
 
-            if (is_string($data['parentcustomerid_account']['address1_city'])) {
-                $this->city = $data['parentcustomerid_account']['address1_city'];
+            $value = $data['parentcustomerid_account']['address1_city'];
+            if (is_string($value)) {
+                $this->city = $value;  // $data['parentcustomerid_account']['address1_city'];
             } else {
                 $this->city = null;
             }
