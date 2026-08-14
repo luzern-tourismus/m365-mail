@@ -15,9 +15,9 @@ class Member
 
     public readonly string|null $salutation;
 
-    public readonly string $firstName;
+    public readonly string|null $firstName;
 
-    public readonly string $lastName;
+    public readonly string|null $lastName;
 
     public readonly string $email;
 
@@ -26,7 +26,6 @@ class Member
 
     public readonly bool $hasCompany;
 
-
     public readonly string|null $company;
 
     public readonly string|null $street;
@@ -34,7 +33,6 @@ class Member
     public readonly string|null $postalCode;
 
     public readonly string|null $city;
-
 
     public function __construct($data)
     {
