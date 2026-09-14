@@ -15,3 +15,9 @@ m365_tenant_id=
 m365_application_id=
 m365_client_secret=
 ```
+
+
+
+### App Registrierung
+
+Mail.Send

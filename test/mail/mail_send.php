@@ -4,6 +4,8 @@ require_once __DIR__ . "/../../config.php";
 
 $filename = 'C:\test\icon.jpg';
 $contentId = 'logo';
+$email = new \Nemundo\Project\Config\ProjectConfigReader()->getValue('test_email');
+
 
 $html = new \Nemundo\Html\Document\HtmlDocument();
 $body = new \Nemundo\Html\Document\Body($html);
@@ -17,11 +19,11 @@ $img->src = 'cid:' . $contentId;
 
 $mail = new \LuzernTourismus\M365Mail\Mail\MailSend();
 $mail->subject = 'test mail';
-$mail->from = '';
-$mail->to ='';
+$mail->from = $email;
+$mail->to = $email;
 $mail->text = $html->getHtml();
 
-$mail->addInlineImage($filename, $contentId);
+//$mail->addInlineImage($filename, $contentId);
 
 //$mail->addAttachment('');
 
