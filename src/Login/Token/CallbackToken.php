@@ -18,18 +18,26 @@ class CallbackToken extends AbstractToken
     protected function loadData($postData)
     {
 
-        $code = $_GET['code'];
-        $state = $_GET['state'];
+        if (isset($_GET['code']) && isset($_GET['state'])) {
 
-        if (new StateSession()->getValue() !== $state) {
-            http_response_code(400);
-            exit('Invalid OAuth state');
+            $code = $_GET['code'];
+            $state = $_GET['state'];
+
+            if (new StateSession()->getValue() !== $state) {
+                http_response_code(400);
+                exit('Invalid OAuth state');
+            }
+
+            new StateSession()->deleteSession();
+
+            $postData['code'] = $code;
+            $postData['redirect_uri'] = $this->redirectUri;
+
+        } else {
+
+            exit('Invalid OAuth data');
+
         }
-
-        new StateSession()->deleteSession();
-
-        $postData['code'] = $code;
-        $postData['redirect_uri'] = $this->redirectUri;
 
         return $postData;
 
