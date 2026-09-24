@@ -2,6 +2,7 @@
 
 namespace LuzernTourismus\M365Mail\Login\Token;
 
+use LuzernTourismus\M365Mail\Login\Session\StateSession;
 use Nemundo\Project\Config\ProjectConfigReader;
 
 class CallbackToken extends AbstractToken
@@ -32,6 +33,23 @@ class CallbackToken extends AbstractToken
 
         $code = $_GET['code'];
         $state = $_GET['state'];
+
+
+        //$returned = $_GET['state'] ?? '';
+        //$state = $_SESSION['oauth_state'] ?? '';
+
+// zeitkonstanter Vergleich, und Einmal-Verwendung
+        //if ($expected === '' || !hash_equals($expected, $returned)) {
+        if (new StateSession()->getValue() !== $state) {
+            http_response_code(400);
+            exit('Invalid OAuth state');
+        }
+        //unset($_SESSION['oauth_state']); // nach Gebrauch entwerten (Replay-Schutz)
+
+        new StateSession()->deleteSession();
+
+
+
 
         //$postData['grant_type'] = 'authorization_code';
         $postData['code'] = $code;

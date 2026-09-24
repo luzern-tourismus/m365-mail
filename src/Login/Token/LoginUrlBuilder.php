@@ -3,6 +3,7 @@
 namespace LuzernTourismus\M365Mail\Login\Token;
 
 use LuzernTourismus\M365Mail\Login\Base\LoginTrait;
+use LuzernTourismus\M365Mail\Login\Session\StateSession;
 use Nemundo\Core\Http\Url\UrlBuilder;
 use Nemundo\Project\Config\ProjectConfigReader;
 
@@ -21,20 +22,11 @@ class LoginUrlBuilder
     public function getLoginUrl()
     {
 
-
         $this->loadConfigFile();
 
-        /*if ($this->tenantId === null) {
-            $this->tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
-        }
+        $state = bin2hex(random_bytes(32));
+        new StateSession()->setValue($state);  // $_SESSION['oauth_state'] = $state;
 
-        if ($this->applicationId === null) {
-            $this->applicationId = (new ProjectConfigReader())->getValue('m365_application_id');
-        }
-
-        if ($this->clientSecret === null) {
-            $this->clientSecret = (new ProjectConfigReader())->getValue('m365_client_secret');
-        }*/
 
         $url = (new UrlBuilder('https://login.microsoftonline.com/' . $this->tenantId . '/oauth2/v2.0/authorize'))
             ->addRequestValue('client_id', $this->applicationId)
@@ -42,7 +34,7 @@ class LoginUrlBuilder
             ->addRequestValue('redirect_uri', $this->redirectUri)
             ->addRequestValue('response_mode', 'query')
             ->addRequestValue('scope', 'openid profile email')
-            ->addRequestValue('state', '12345')
+            ->addRequestValue('state', $state)
             ->getUrl();
 
         return $url;
