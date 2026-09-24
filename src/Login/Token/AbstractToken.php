@@ -16,12 +16,6 @@ abstract class AbstractToken extends AbstractBase
 
     protected $scope;
 
-    /*protected $tenantId;
-
-    protected $applicationId;
-
-    protected $clientSecret;*/
-
     protected $grantType;
 
 
@@ -44,18 +38,6 @@ abstract class AbstractToken extends AbstractBase
 
         $this->loadConfigFile();
 
-        /*if ($this->tenantId === null) {
-            $this->tenantId = (new ProjectConfigReader())->getValue('m365_tenant_id');
-        }
-
-        if ($this->applicationId === null) {
-            $this->applicationId = (new ProjectConfigReader())->getValue('m365_application_id');
-        }
-
-        if ($this->clientSecret === null) {
-            $this->clientSecret = (new ProjectConfigReader())->getValue('m365_client_secret');
-        }*/
-
         $tokenUrl = 'https://login.microsoftonline.com/' . $this->tenantId . '/oauth2/v2.0/token';
 
         $postData = [];
@@ -63,22 +45,8 @@ abstract class AbstractToken extends AbstractBase
         $postData['scope'] = $this->scope;
         $postData['client_secret'] = $this->clientSecret;
         $postData['grant_type'] = $this->grantType;
-        //$postData['grant_type'] = 'client_credentials';
 
         $postData = $this->loadData($postData);
-
-
-        /*
-                $tokenUrl = 'https://login.microsoftonline.com/' . $tenantId . '/oauth2/v2.0/token';
-
-                $postData = [];
-                $postData['client_id'] = $clientId;
-                $postData['scope'] = 'openid profile email';
-                $postData['client_secret'] = $clientSecret;
-                $postData['grant_type'] = 'authorization_code';
-                $postData['code'] = $code;
-                $postData['redirect_uri']='http://localhost:16238/callback';*/
-
 
         $tokenRequest = new CurlWebRequest();
         $tokeResponse = $tokenRequest->postUrl($tokenUrl, $postData);
@@ -86,19 +54,13 @@ abstract class AbstractToken extends AbstractBase
         $tokenJson = (new JsonReader())->fromText($tokeResponse->html)->getData();
 
         if ($tokeResponse->statusCode === 400) {
-            //(new Debug())->write('No valid token');
-
-            //"error":"invalid_grant","error_description
 
             $error = $tokenJson['error'];
             $errorDescription = $tokenJson['error_description'];
 
-
             (new Debug())->write($errorDescription);
 
-
         }
-
 
         $token = null;
         if (isset($tokenJson['access_token'])) {

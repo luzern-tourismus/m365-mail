@@ -4,7 +4,6 @@ namespace LuzernTourismus\M365Mail\Login\Site;
 
 use LuzernTourismus\M365Mail\Login\Token\LoginUrlBuilder;
 use Nemundo\Core\Http\Url\UrlRedirect;
-use Nemundo\Project\Config\ProjectConfigReader;
 use Nemundo\Web\Site\AbstractSite;
 
 class SsoLoginSite extends AbstractSite

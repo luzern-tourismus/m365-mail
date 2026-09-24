@@ -13,9 +13,7 @@ use Nemundo\Project\Path\TmpPath;
 class ProfileUsergroupMemebership extends AbstractBase
 {
 
-
     public $token;
-
 
     public function isMemberOfUsergroup($usergroupId)
     {
@@ -40,12 +38,7 @@ class ProfileUsergroupMemebership extends AbstractBase
     public function getGroupMembershipList()
     {
 
-
-        //$url = 'https://graph.microsoft.com/v1.0/me?$expand=transitiveMemberOf($top=999;$select=id,displayName)';
-        //$url = 'https://graph.microsoft.com/v1.0/me?$expand=memberOf($top=999;$select=id,displayName)';
         $url = 'https://graph.microsoft.com/v1.0/me/memberOf?$top=999';
-
-        //(new Debug())->write($url);
 
         $curl = new JsonBearerAuthenticationWebRequest();
         $curl->bearerAuthentication = $this->token;
@@ -63,7 +56,6 @@ class ProfileUsergroupMemebership extends AbstractBase
         }
 
         $profileJson = (new JsonReader())->fromText($response->html)->getData();
-        //$profile = new Profile($profileJson);
 
         $list=[];
         if (isset($profileJson['value'])) {
@@ -75,6 +67,5 @@ class ProfileUsergroupMemebership extends AbstractBase
         return $list;
 
     }
-
 
 }

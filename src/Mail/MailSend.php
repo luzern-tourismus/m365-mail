@@ -46,20 +46,6 @@ class MailSend extends AbstractBase
     }
 
 
-
-/*
-{
-"@odata.type": "#microsoft.graph.fileAttachment",
-"name": "logo.png",
-"contentType": "image/png",
-"contentBytes": "BASE64_STRING_DES_BILDES",
-"isInline": true,
-"contentId": "logo123"
-}*/
-
-
-
-
     public function send()
     {
 
@@ -122,9 +108,8 @@ class MailSend extends AbstractBase
         $response = $request->postUrl($graphEndpoint, (new JsonText())->addData($payload)->getJson());
 
         if ($response->statusCode === StatusCode::ACCEPTED) {
-        }
 
-        //if ($response->statusCode === StatusCode::BAD_REQUEST) {}
+        }
 
 
         if ($response->statusCode !== StatusCode::ACCEPTED) {
@@ -136,18 +121,9 @@ class MailSend extends AbstractBase
                 (new Debug())->write($json['error']['code']);
                 (new Debug())->write($json['error']['message']);
 
-
             }
 
-
-            //(new Debug())->write($response);
-
-
-
         }
-
-
-
 
     }
 

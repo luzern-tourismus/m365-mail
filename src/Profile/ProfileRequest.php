@@ -3,8 +3,6 @@
 namespace LuzernTourismus\M365Mail\Profile;
 
 use LuzernTourismus\M365Mail\Graph\Config\GraphConfig;
-use LuzernTourismus\M365Mail\Graph\Reader\UsergroupItem;
-use LuzernTourismus\M365Mail\Graph\Request\GraphRequest;
 use Nemundo\Core\Json\Reader\JsonReader;
 use Nemundo\Core\TextFile\Writer\TextFileWriter;
 use Nemundo\Core\WebRequest\BearerAuthentication\JsonBearerAuthenticationWebRequest;
